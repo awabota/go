@@ -23,24 +23,56 @@ body {
 }
 
 .content {
-  padding: 20px;
+  padding: 28px 24px;
 }
 
 .title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  color: #111;
 }
 
 .text {
   font-size: 14px;
-  line-height: 1.9;
+  line-height: 2;
   color: #444;
   margin-bottom: 20px;
 }
 
+.guide {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: #444;
+  margin-bottom: 24px;
+}
+
+.guide strong {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.keyword {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  background: #fff3cd;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
 .btn {
   display: block;
+  width: 100%;
+  box-sizing: border-box;
   text-align: center;
   background: #06C755;
   color: #fff;
@@ -65,10 +97,14 @@ body {
 
     <div class="text">
       現在準備中です。<br>
-      先行案内は公式LINEで受け取れます。<br><br>
-      公式LINE登録後、<br>
-      「思想コンテンツサポート」と送信してください。<br>
-      内容を確認後、ご対応いたします。
+      先行案内は公式LINEで受け取れます。
+    </div>
+
+    <div class="guide">
+      <strong>登録後の流れ</strong>
+      公式LINEに登録後、<br>
+      <span class="keyword">「思想コンテンツサポート」</span> とメッセージを送信してください。<br>
+      確認後、順番にご案内いたします。
     </div>
 
     <a href="https://line.me/R/ti/p/@479rnxap" class="btn" id="btn-bottom">
@@ -78,34 +114,27 @@ body {
 </div>
 
 <script>
-  // 1. 紹介者(ref)をURLから取得
   const urlParams = new URLSearchParams(window.location.search);
   const referrer = urlParams.get('ref') || 'direct';
 
-  // 2. 計測用GASウェブアプリURL
   const gasUrl = "https://script.google.com/macros/s/AKfycbxeLw4JEGQseXcqub9e9yLTkmwkKF_AIoZtopKQQ9IhyFdrteP7kGMRc-P6TtKg7Ocd/exec";
-
-  // 3. サービス名
   const serviceName = "shisou";
 
   function trackAndGo(e) {
     e.preventDefault();
 
-    // A. 裏側でスプレッドシートに記録
     const trackUrl = `${gasUrl}?src=${serviceName}&ref=${referrer}`;
     fetch(trackUrl, {
       mode: 'no-cors',
       keepalive: true
     });
 
-    // B. LINEへ飛ばす際にメッセージを自動入力
     const message = encodeURIComponent(`思想コンテンツサポート ${referrer}`);
     const lineLink = `https://line.me/R/oaMessage/@479rnxap/?${message}`;
 
     window.location.href = lineLink;
   }
 
-  // 4. ボタンにイベント設定
   document.getElementById('btn-bottom').addEventListener('click', trackAndGo);
 </script>
 
