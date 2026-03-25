@@ -61,13 +61,11 @@ body {
   opacity: 0.9;
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
-
   <div class="image">
     <img src="画像URL" alt="">
   </div>
@@ -80,48 +78,41 @@ body {
       先行案内は公式LINEで受け取れます。
     </div>
 
-    <a href="https://line.me/R/ti/p/@479rnxap" class="btn">
+    <a href="https://line.me/R/ti/p/@479rnxap" class="btn" id="btn-bottom">
       公式LINEに登録する
     </a>
   </div>
-
 </div>
-
-</body>
-</html>
 
 <script>
   // 1. 紹介者(ref)をURLから取得
   const urlParams = new URLSearchParams(window.location.search);
   const referrer = urlParams.get('ref') || 'direct';
-  
-  // 2. 計測用GASウェブアプリURL（提供されたURLを維持）
+
+  // 2. 計測用GASウェブアプリURL
   const gasUrl = "https://script.google.com/macros/s/AKfycbxeLw4JEGQseXcqub9e9yLTkmwkKF_AIoZtopKQQ9IhyFdrteP7kGMRc-P6TtKg7Ocd/exec";
-  
-  // 3. サービス名の設定
-  const serviceName = "Love";
+
+  // 3. サービス名を zerolayer に変更
+  const serviceName = "zerolayer";
 
   function trackAndGo(e) {
-    e.preventDefault(); // デフォルトの移動を一旦キャンセル
+    e.preventDefault();
 
-    // A. 裏側でスプレッドシートに記録（fetch）
+    // A. 裏側でスプレッドシートに記録
     const trackUrl = `${gasUrl}?src=${serviceName}&ref=${referrer}`;
-    fetch(trackUrl, { 
-      mode: 'no-cors', 
-      keepalive: true 
+    fetch(trackUrl, {
+      mode: 'no-cors',
+      keepalive: true
     });
 
-    // B. LINEへ飛ばす際にメッセージを自動入力させる
-    // 形式: Love 紹介者名（例：Love miitaku）
+    // B. LINEへ飛ばす際にメッセージを自動入力
     const message = encodeURIComponent(`${serviceName} ${referrer}`);
     const lineLink = `https://line.me/R/oaMessage/@479rnxap/?${message}`;
 
-    // 移動実行
     window.location.href = lineLink;
   }
 
-  // 4. 各ボタンにイベントを設定
-  document.getElementById('btn-top').addEventListener('click', trackAndGo);
+  // 4. ボタンにイベント設定
   document.getElementById('btn-bottom').addEventListener('click', trackAndGo);
 </script>
 
