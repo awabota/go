@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>go</title>
+<title>思想コンテンツサポート</title>
 
 <style>
 body {
@@ -22,12 +22,6 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
-.image img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 .content {
   padding: 20px;
 }
@@ -40,7 +34,7 @@ body {
 
 .text {
   font-size: 14px;
-  line-height: 1.8;
+  line-height: 1.9;
   color: #444;
   margin-bottom: 20px;
 }
@@ -66,16 +60,15 @@ body {
 <body>
 
 <div class="container">
-  <div class="image">
-    <img src="画像URL" alt="">
-  </div>
-
   <div class="content">
     <div class="title">思想コンテンツサポート</div>
 
     <div class="text">
       現在準備中です。<br>
-      先行案内は公式LINEで受け取れます。
+      先行案内は公式LINEで受け取れます。<br><br>
+      公式LINE登録後、<br>
+      「思想コンテンツサポート」と送信してください。<br>
+      内容を確認後、ご対応いたします。
     </div>
 
     <a href="https://line.me/R/ti/p/@479rnxap" class="btn" id="btn-bottom">
@@ -92,8 +85,8 @@ body {
   // 2. 計測用GASウェブアプリURL
   const gasUrl = "https://script.google.com/macros/s/AKfycbxeLw4JEGQseXcqub9e9yLTkmwkKF_AIoZtopKQQ9IhyFdrteP7kGMRc-P6TtKg7Ocd/exec";
 
-  // 3. サービス名を zerolayer に変更
-  const serviceName = "zerolayer";
+  // 3. サービス名
+  const serviceName = "shisou";
 
   function trackAndGo(e) {
     e.preventDefault();
@@ -106,7 +99,7 @@ body {
     });
 
     // B. LINEへ飛ばす際にメッセージを自動入力
-    const message = encodeURIComponent(`${serviceName} ${referrer}`);
+    const message = encodeURIComponent(`思想コンテンツサポート ${referrer}`);
     const lineLink = `https://line.me/R/oaMessage/@479rnxap/?${message}`;
 
     window.location.href = lineLink;
