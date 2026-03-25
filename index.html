@@ -89,3 +89,41 @@ body {
 
 </body>
 </html>
+
+<script>
+  // 1. 紹介者(ref)をURLから取得
+  const urlParams = new URLSearchParams(window.location.search);
+  const referrer = urlParams.get('ref') || 'direct';
+  
+  // 2. 計測用GASウェブアプリURL（提供されたURLを維持）
+  const gasUrl = "https://script.google.com/macros/s/AKfycbxeLw4JEGQseXcqub9e9yLTkmwkKF_AIoZtopKQQ9IhyFdrteP7kGMRc-P6TtKg7Ocd/exec";
+  
+  // 3. サービス名の設定
+  const serviceName = "Love";
+
+  function trackAndGo(e) {
+    e.preventDefault(); // デフォルトの移動を一旦キャンセル
+
+    // A. 裏側でスプレッドシートに記録（fetch）
+    const trackUrl = `${gasUrl}?src=${serviceName}&ref=${referrer}`;
+    fetch(trackUrl, { 
+      mode: 'no-cors', 
+      keepalive: true 
+    });
+
+    // B. LINEへ飛ばす際にメッセージを自動入力させる
+    // 形式: Love 紹介者名（例：Love miitaku）
+    const message = encodeURIComponent(`${serviceName} ${referrer}`);
+    const lineLink = `https://line.me/R/oaMessage/@479rnxap/?${message}`;
+
+    // 移動実行
+    window.location.href = lineLink;
+  }
+
+  // 4. 各ボタンにイベントを設定
+  document.getElementById('btn-top').addEventListener('click', trackAndGo);
+  document.getElementById('btn-bottom').addEventListener('click', trackAndGo);
+</script>
+
+</body>
+</html>
